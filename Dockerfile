@@ -1,7 +1,20 @@
+#--------------------------------------
+# Ubuntu base image to use
+#--------------------------------------
+ARG FLAVOR=latest
+
+#--------------------------------------
+# renovate rebuild trigger
+#--------------------------------------
+
 # renovate: datasource=docker versioning=docker
 ARG RUST_VERSION=1.43.1
-
 FROM renovate/2-rust@sha256:e5cfd10d9413db074761b62c544e265b219ee32c2b1416e83ccd91d1fec63e4f
+
+#--------------------------------------
+# Image: final
+#--------------------------------------
+FROM renovate/2-rust-${FLAVOR}
 
 ARG RUST_VERSION
 RUN install-tool rust

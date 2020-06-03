@@ -9,12 +9,20 @@ on:
   pull_request:
 
 env:
+  LATEST_FLAVOR: 18.04
   # https://github.com/chalk/supports-color/issues/106
   FORCE_COLOR: true
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        flavor: [18.04, 20.04]
+
+    env:
+      FLAVOR: ${{ matrix.flavor }}
 
     steps:
 
@@ -27,6 +35,18 @@ jobs:
         uses: renovatebot/internal-tools@v0
         with:
           command: docker-builder
+          build-args: FLAVOR
           major-minor: false
           prune: true
+          tag-suffix: ${{ env.FLAVOR }}
           dry-run: ${{github.ref != 'refs/heads/master'}}
+
+      - name: Build and Publish (no flavor)
+        if: ${{ env.FLAVOR == env.LATEST_FLAVOR }}
+        uses: renovatebot/internal-tools@v0
+        with:
+          command: docker-builder
+          build-args: FLAVOR
+          major-minor: false
+          prune: true
+          dry-run: ${{ env.DRY_RUN }}
