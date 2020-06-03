@@ -1,0 +1,5 @@
+{
+  "image": "rust",
+  "startVersion": "1.33.0",
+  "cache": "docker-build-cache"
+}
