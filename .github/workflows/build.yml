@@ -48,4 +48,4 @@ jobs:
           major-minor: false
           prune: true
           tag-suffix: ${{ env.FLAVOR_TAG }}
-          dry-run: ${{ env.DRY_RUN || env.FLAVOR != 'latest'}}
+          dry-run: ${{ env.DRY_RUN }}
