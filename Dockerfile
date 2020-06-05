@@ -1,7 +1,7 @@
 #--------------------------------------
 # Ubuntu base image to use
 #--------------------------------------
-ARG FLAVOR=latest
+ARG FLAVOR=
 
 #--------------------------------------
 # renovate rebuild triggers
@@ -15,7 +15,7 @@ FROM renovate/buildpack:2-rust@sha256:5fcd2651587d01003e6088ad53d06358f8fb5a953b
 #--------------------------------------
 # Image: final
 #--------------------------------------
-FROM renovate/buildpack:2-rust-${FLAVOR}
+FROM renovate/buildpack:2-rust${FLAVOR}
 
 ARG RUST_VERSION
 RUN install-tool rust

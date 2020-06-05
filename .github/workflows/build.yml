@@ -20,10 +20,11 @@ jobs:
 
     strategy:
       matrix:
-        flavor: [18.04, 20.04]
+        flavor: [latest, 18.04, 20.04]
 
     env:
-      FLAVOR: ${{ matrix.flavor }}
+      FLAVOR: ${{ format('-{0}', matrix.flavor) }}
+      FLAVOR_TAG: ${{ matrix.flavor }}
 
     steps:
 
@@ -32,15 +33,12 @@ jobs:
       - name: Docker registry login
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
 
-      - name: Build and Publish (no flavor)
-        if: ${{ env.FLAVOR == env.LATEST_FLAVOR }}
-        uses: renovatebot/internal-tools@v0
-        with:
-          command: docker-builder
-          build-args: FLAVOR
-          major-minor: false
-          prune: true
-          dry-run: ${{ env.DRY_RUN }}
+      - name: fix flavor
+        run: |
+          FLAVOR_TAG=${FLAVOR_TAG/18.04/bionic}
+          FLAVOR_TAG=${FLAVOR_TAG/20.04/focal}
+          echo "::set-env name=FLAVOR_TAG::${FLAVOR_TAG}"
+          echo "::set-env name=FLAVOR::${FLAVOR/-latest/}"
 
       - name: Build and Publish
         uses: renovatebot/internal-tools@v0
@@ -49,5 +47,5 @@ jobs:
           build-args: FLAVOR
           major-minor: false
           prune: true
-          tag-suffix: ${{ env.FLAVOR }}
+          tag-suffix: ${{ env.FLAVOR_TAG }}
           dry-run: ${{ env.DRY_RUN }}
