@@ -10,7 +10,7 @@ ARG FLAVOR=
 # renovate: datasource=docker depName=rust versioning=docker
 ARG RUST_VERSION=1.46.0
 
-FROM renovate/buildpack:2-rust@sha256:ed990b82c5f41d542331492231e3a4eb6834b6b5a0c8dcf270b6154d1f24f7d4
+FROM renovate/buildpack:2-rust@sha256:1663cb324e9b339a4ff860424b18f0c2bf6fc6bdf33a817a3ac5a392706f9a64
 
 #--------------------------------------
 # Image: final
