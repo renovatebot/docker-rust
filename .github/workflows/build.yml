@@ -41,7 +41,7 @@ jobs:
           echo "::set-env name=FLAVOR::${FLAVOR/-latest/}"
 
       - name: Build and Publish
-        uses: renovatebot/internal-tools@v1.1.14
+        uses: renovatebot/internal-tools@v1.1.15
         with:
           command: docker-builder
           build-args: FLAVOR
