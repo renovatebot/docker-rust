@@ -37,8 +37,8 @@ jobs:
         run: |
           FLAVOR_TAG=${FLAVOR_TAG/18.04/bionic}
           FLAVOR_TAG=${FLAVOR_TAG/20.04/focal}
-          echo "::set-env name=FLAVOR_TAG::${FLAVOR_TAG}"
-          echo "::set-env name=FLAVOR::${FLAVOR/-latest/}"
+          echo "FLAVOR_TAG=${FLAVOR_TAG}" >> $GITHUB_ENV
+          echo "FLAVOR=${FLAVOR/-latest/}" >> $GITHUB_ENV
 
       - name: Build and Publish
         uses: renovatebot/internal-tools@v1.2.2
