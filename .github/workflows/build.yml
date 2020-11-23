@@ -9,7 +9,6 @@ on:
   pull_request:
 
 env:
-  LATEST_FLAVOR: 18.04
   DRY_RUN: ${{ github.ref != 'refs/heads/master' }}
   # https://github.com/chalk/supports-color/issues/106
   FORCE_COLOR: true
@@ -20,24 +19,21 @@ jobs:
 
     strategy:
       matrix:
-        flavor: [latest, 18.04, 20.04]
+        flavor: [latest, bionic, focal]
 
     env:
       FLAVOR: ${{ format('-{0}', matrix.flavor) }}
       FLAVOR_TAG: ${{ matrix.flavor }}
 
     steps:
-
       - uses: actions/checkout@v2.3.4
 
       - name: Docker registry login
+        if: github.ref == 'refs/heads/master'
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
 
       - name: fix flavor
         run: |
-          FLAVOR_TAG=${FLAVOR_TAG/18.04/bionic}
-          FLAVOR_TAG=${FLAVOR_TAG/20.04/focal}
-          echo "FLAVOR_TAG=${FLAVOR_TAG}" >> $GITHUB_ENV
           echo "FLAVOR=${FLAVOR/-latest/}" >> $GITHUB_ENV
 
       - name: Build and Publish
