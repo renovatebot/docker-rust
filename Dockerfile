@@ -1,5 +1,5 @@
 # renovate: datasource=docker depName=rust versioning=docker
-ARG RUST_VERSION=1.53.0
+ARG RUST_VERSION=1.54.0
 
 FROM renovate/buildpack:5-rust@sha256:103967d8ce271e9b539d464b0c3bb5e313f276b4dee3279b6bdc808909665eb0
 
