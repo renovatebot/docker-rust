@@ -1,7 +1,7 @@
 # renovate: datasource=docker depName=rust versioning=docker
 ARG RUST_VERSION=1.54.0
 
-FROM renovate/buildpack:5-rust@sha256:25f1045ddbd92f73b12fec690cf72d37c66ef1d6ee5588f26f3df62fa8ff38fc
+FROM renovate/buildpack:5-rust@sha256:9524c1c48a725494413ec2c8e9e2e022bb1db6bc2c281fa04819ca01d46ef921
 
 ARG RUST_VERSION
 RUN install-tool rust
