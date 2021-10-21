@@ -8,10 +8,12 @@ on:
 
   pull_request:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
+  cancel-in-progress: true
+
 env:
   DRY_RUN: ${{ github.ref != 'refs/heads/main' }}
-  # https://github.com/chalk/supports-color/issues/106
-  FORCE_COLOR: true
 
 jobs:
   build:
